@@ -26,15 +26,9 @@ public partial class PlayerSystem : SystemBase, GameInputAction.IPlayerActions
         Entity playerEntity = SystemAPI.GetSingletonEntity<PlayerComponent>();
         PlayerAspect playerAspect = SystemAPI.GetAspect<PlayerAspect>(playerEntity);
 
-        NativeArray<ObstacleComponent> obstacles = SystemAPI.QueryBuilder()
-            .WithAspect<ObstacleAspect>()
-            .Build()
-            .ToComponentDataArray<ObstacleComponent>(Allocator.TempJob);
-
         PlayerMovementJob playerMovementJob = new PlayerMovementJob
         {
-            movementDirection = new float3(movementDirection, 0.0f) * playerAspect.MovementSpeed * SystemAPI.Time.DeltaTime,
-            obstacleAspects = obstacles
+            MovementDirection = new float3(movementDirection, 0.0f),
         };
 
         playerMovementJob.ScheduleParallel();
