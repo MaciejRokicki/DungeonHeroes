@@ -31,19 +31,11 @@ public partial class PlayerSystem : SystemBase, GameInputAction.IPlayerActions
             MovementDirection = new float3(movementDirection, 0.0f),
         };
 
-        playerMovementJob.ScheduleParallel();
+        Dependency = playerMovementJob.Schedule(Dependency);
 
-        //DynamicBuffer<PlayerHealthBufferElement> buffer = SystemAPI.GetSingletonBuffer<PlayerHealthBufferElement>();
+        Dependency.Complete();
 
-        //if(Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    buffer.Add(new PlayerHealthBufferElement
-        //    {
-        //        Value = -1.0f
-        //    });
-        //}
-
-        //playerAspect.ApplyBuffer();
+        playerAspect.ApplyBuffer();
     }
 
     public void OnMovement(InputAction.CallbackContext context)

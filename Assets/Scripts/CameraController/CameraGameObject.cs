@@ -3,6 +3,7 @@ using UnityEngine;
 public class CameraGameObject : MonoBehaviour
 {
     public static Camera Instance;
+    public static Vector2 CameraViewSize;
     public static Vector2 ViewClampMin;
     public static Vector2 ViewClampMax;
 
@@ -13,7 +14,7 @@ public class CameraGameObject : MonoBehaviour
     {
         Instance = GetComponent<Camera>();
 
-        Vector2 CameraViewSize = new Vector2(
+        CameraViewSize = new Vector2(
             Instance.orthographicSize * 2.0f * Instance.aspect,
             Instance.orthographicSize * 2.0f);
 
