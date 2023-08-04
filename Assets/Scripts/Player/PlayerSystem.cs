@@ -23,6 +23,7 @@ public partial class PlayerSystem : SystemBase, GameInputAction.IPlayerActions
 
     protected override void OnUpdate()
     {
+        EntityCommandBuffer ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(World.Unmanaged);
         Entity playerEntity = SystemAPI.GetSingletonEntity<PlayerComponent>();
         PlayerAspect playerAspect = SystemAPI.GetAspect<PlayerAspect>(playerEntity);
 
@@ -36,6 +37,15 @@ public partial class PlayerSystem : SystemBase, GameInputAction.IPlayerActions
         Dependency.Complete();
 
         playerAspect.ApplyBuffer();
+
+        DestronyPlayerJob destronyPlayerJob = new DestronyPlayerJob
+        {
+            Ecb = ecb
+        };
+
+        Dependency = destronyPlayerJob.Schedule(Dependency);
+
+        Dependency.Complete();
     }
 
     public void OnMovement(InputAction.CallbackContext context)
