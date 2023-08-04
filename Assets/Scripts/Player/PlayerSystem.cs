@@ -8,6 +8,17 @@ public partial class PlayerSystem : SystemBase, GameInputAction.IPlayerActions
 {
     private GameInputAction inputAction;
     private float2 movementDirection;
+    private readonly NativeArray<float3> directions = new NativeArray<float3>(new float3[8]
+    {
+        new float3(0.0f, 1.0f, 0.0f),
+        new float3(1.0f, 1.0f, 0.0f),
+        new float3(1.0f, 0.0f, 0.0f),
+        new float3(1.0f, -1.0f, 0.0f),
+        new float3(0.0f, -1.0f, 0.0f),
+        new float3(-1.0f, -1.0f, 0.0f),
+        new float3(-1.0f, 0.0f, 0.0f),
+        new float3(-1.0f, 1.0f, 0.0f)
+    }, Allocator.TempJob);
 
     protected override void OnStartRunning() => inputAction.Enable();
 
@@ -36,16 +47,31 @@ public partial class PlayerSystem : SystemBase, GameInputAction.IPlayerActions
 
         Dependency.Complete();
 
-        playerAspect.ApplyBuffer();
+        playerAspect.ApplyHealthBuffer();
 
-        DestronyPlayerJob destronyPlayerJob = new DestronyPlayerJob
+        DestroyPlayerJob destroyPlayerJob = new DestroyPlayerJob
         {
             Ecb = ecb
         };
 
-        Dependency = destronyPlayerJob.Schedule(Dependency);
+        Dependency = destroyPlayerJob.Schedule(Dependency);
 
         Dependency.Complete();
+
+        PlayerWeaponSpawnJob playerWeaponSpawnJob = new PlayerWeaponSpawnJob
+        {
+            Ecb = ecb,
+            DeltaTime = SystemAPI.Time.DeltaTime,
+            WeaponCompnent = SystemAPI.GetComponent<WeaponComponent>(SystemAPI.GetComponent<PlayerComponent>(playerEntity).Weapon),
+            AttackDirections = directions,
+            WeaponEntity = SystemAPI.GetComponent<PlayerComponent>(playerEntity).Weapon,
+        };
+
+        Dependency = playerWeaponSpawnJob.Schedule(Dependency);
+
+        Dependency.Complete();
+
+        playerAspect.ApplyAttackTimerBuffer();
     }
 
     public void OnMovement(InputAction.CallbackContext context)

@@ -25,5 +25,12 @@ public partial struct EnemySystem : ISystem
         };
 
         enemyMovementJob.Schedule();
+
+        EnemyDestronyJob enemyDestronyJob = new EnemyDestronyJob
+        {
+            Ecb = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged)
+        };
+
+        enemyDestronyJob.Schedule();
     }
 }

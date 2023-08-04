@@ -2,7 +2,7 @@
 using Unity.Entities;
 
 [BurstCompile]
-public partial struct DestronyPlayerJob : IJobEntity
+public partial struct DestroyPlayerJob : IJobEntity
 {
     public EntityCommandBuffer Ecb;
 
