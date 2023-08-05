@@ -3,15 +3,15 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
-public partial struct EnemySpawnerProcessJob : IJobEntity
+public partial struct EnemySpawnerSpawnEnemyJob : IJobEntity
 {
+    public EntityCommandBuffer.ParallelWriter ECB;
     public Random Random;
-    public EntityCommandBuffer.ParallelWriter Ecb;
-    public float deltaTime;
+    public float DeltaTime;
     public float3 PlayerPosition;
 
     private void Execute([ChunkIndexInQuery] int chunkIndex,
-        EnemySpawnerComponent spawner,
+        EnemySpawnerComponent _,
         ref DynamicBuffer<EnemySpawnerEnemiesBuffer> enemySpawnerEnemiesBuffer,
         ref DynamicBuffer<EnemySpawnerSpawnPositionBuffer> enemySpawnerSpawnPositionBuffer)
     {
@@ -28,8 +28,8 @@ public partial struct EnemySpawnerProcessJob : IJobEntity
 
             Entity enemyPrefab = enemySpawnerEnemiesBuffer[Random.NextInt(0, enemySpawnerEnemiesBuffer.Length)].Enemy;
 
-            Entity entity = Ecb.Instantiate(chunkIndex, enemyPrefab);
-            Ecb.SetComponent(chunkIndex, entity, LocalTransform.FromPosition(enemySpawnerSpawnPosition.SpawnPosition));
+            Entity entity = ECB.Instantiate(chunkIndex, enemyPrefab);
+            ECB.SetComponent(chunkIndex, entity, LocalTransform.FromPosition(enemySpawnerSpawnPosition.SpawnPosition));
         }
 
     }

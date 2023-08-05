@@ -4,13 +4,13 @@ using Unity.Entities;
 [BurstCompile]
 public partial struct DestroyPlayerJob : IJobEntity
 {
-    public EntityCommandBuffer Ecb;
+    public EntityCommandBuffer ECB;
 
     public void Execute(Entity entity, PlayerComponent playerComponent)
     {
         if(playerComponent.Health < 0.0f)
         {
-            Ecb.DestroyEntity(entity);
+            ECB.DestroyEntity(entity);
         }
     }
 }

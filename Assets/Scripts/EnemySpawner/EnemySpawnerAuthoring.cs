@@ -4,15 +4,17 @@ using UnityEngine;
 public class EnemySpawnerAuthoring : MonoBehaviour
 {
     public GameObject[] Enemies;
-    public Vector3[] SpawningPositions;
+    public Vector3[] SpawnPositions;
 
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
-        foreach (Vector3 spawnPoint in SpawningPositions)
+        foreach (Vector3 spawnPoint in SpawnPositions)
         {
             Gizmos.DrawCube(spawnPoint, Vector3.one);
         }
     }
+#endif
 }
 
 public class EnemySpawnerBaker : Baker<EnemySpawnerAuthoring>
@@ -34,7 +36,7 @@ public class EnemySpawnerBaker : Baker<EnemySpawnerAuthoring>
             });
         }
 
-        foreach (Vector3 spawnPosition in authoring.SpawningPositions)
+        foreach (Vector3 spawnPosition in authoring.SpawnPositions)
         {
             spawnPositionBuffer.Add(new EnemySpawnerSpawnPositionBuffer
             {

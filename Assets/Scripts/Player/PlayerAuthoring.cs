@@ -14,6 +14,7 @@ internal class PlayerBaker : Baker<PlayerAuthoring>
     {
         Entity entity = GetEntity(TransformUsageFlags.None);
 
+        AddComponent(entity, new PlayerInputComponent());
         AddComponent(entity, new PlayerComponent
         {
             Health = authoring.MaxHealth,

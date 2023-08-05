@@ -7,7 +7,7 @@ using Unity.Transforms;
 [BurstCompile]
 public partial struct PlayerWeaponSpawnJob : IJobEntity
 {
-    public EntityCommandBuffer Ecb;
+    public EntityCommandBuffer ECB;
     [ReadOnly]
     public float DeltaTime;
     [ReadOnly]
@@ -25,8 +25,8 @@ public partial struct PlayerWeaponSpawnJob : IJobEntity
             {
                 float angleZ = math.radians(math.degrees(math.atan2(attackDirection.y, attackDirection.x)) - 90.0f);
 
-                Entity weaponEntity = Ecb.Instantiate(WeaponEntity);
-                Ecb.SetComponent(weaponEntity, LocalTransform.FromPositionRotation(
+                Entity weaponEntity = ECB.Instantiate(WeaponEntity);
+                ECB.SetComponent(weaponEntity, LocalTransform.FromPositionRotation(
                     transform.Position + attackDirection,
                     quaternion.AxisAngle(new float3(0.0f, 0.0f, 1.0f), angleZ)
                     )
@@ -36,7 +36,7 @@ public partial struct PlayerWeaponSpawnJob : IJobEntity
                 tmpWeaponComponent.Direction = attackDirection;
                 tmpWeaponComponent.SpawnPosition = transform.Position + attackDirection;
 
-                Ecb.SetComponent(weaponEntity, tmpWeaponComponent);
+                ECB.SetComponent(weaponEntity, tmpWeaponComponent);
             }
 
             playerAttackTimerBufferElement.Add(new PlayerAttackTimerBufferElement { Value = 0.0f });

@@ -2,7 +2,7 @@ using Unity.Burst;
 using Unity.Entities;
 using Unity.Transforms;
 
-public partial struct EnemySystem : ISystem
+public partial struct EnemyMovementSystem : ISystem
 {
     [BurstCompile]
     public void OnCreate(ref SystemState state)
@@ -17,20 +17,11 @@ public partial struct EnemySystem : ISystem
         LocalTransform playerTransform = SystemAPI.GetComponent<LocalTransform>(playerEntity);
         DynamicBuffer<PlayerHealthBufferElement> playerHealthBuffer = SystemAPI.GetSingletonBuffer<PlayerHealthBufferElement>();
 
-        EnemyMovementJob enemyMovementJob = new EnemyMovementJob
+        new EnemyMovementJob
         {
             PlayerPosition = playerTransform.Position,
             PlayerHealthBuffer = playerHealthBuffer,
             DeltaTime = SystemAPI.Time.DeltaTime
-        };
-
-        enemyMovementJob.Schedule();
-
-        EnemyDestronyJob enemyDestronyJob = new EnemyDestronyJob
-        {
-            Ecb = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged)
-        };
-
-        enemyDestronyJob.Schedule();
+        }.Schedule();
     }
 }

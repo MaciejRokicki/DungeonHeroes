@@ -6,7 +6,7 @@ using Unity.Physics.Stateful;
 [BurstCompile]
 public partial struct WeaponEnemyTriggerJob : IJobEntity
 {
-    public EntityCommandBuffer Ecb;
+    public EntityCommandBuffer ECB;
     [ReadOnly]
     public ComponentLookup<EnemyComponent> EnemyComponent;
 
@@ -25,7 +25,7 @@ public partial struct WeaponEnemyTriggerJob : IJobEntity
                 {
                     enemyComponent.Health -= weaponComponent.Damage;
 
-                    Ecb.SetComponent(otherEntity, enemyComponent);
+                    ECB.SetComponent(otherEntity, enemyComponent);
                 }
             }
         }

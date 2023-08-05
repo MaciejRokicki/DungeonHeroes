@@ -173,7 +173,7 @@ MonoBehaviour:
   - {fileID: 3342882636655922828, guid: 2dffc9e98ceb0a44e990563a3422992b, type: 3}
   - {fileID: 5555822686720405936, guid: b9b2e30d4abd5c043b9a5122a8dd365c, type: 3}
   - {fileID: 2939957392032605722, guid: c1fa0ae227c606d4b98c0db67386e7b0, type: 3}
-  SpawningPositions:
+  SpawnPositions:
   - {x: -25, y: 10, z: 0}
   - {x: -27, y: -13, z: 0}
   - {x: 23, y: -12, z: 0}

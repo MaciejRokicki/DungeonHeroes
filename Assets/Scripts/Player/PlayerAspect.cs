@@ -13,8 +13,6 @@ public readonly partial struct PlayerAspect : IAspect
     readonly RefRW<PlayerComponent> playerComponent;
     readonly RefRW<PhysicsVelocity> velocity;
     readonly RefRW<PhysicsMass> mass;
-    readonly DynamicBuffer<PlayerHealthBufferElement> playerHealthBuffer;
-    readonly DynamicBuffer<PlayerAttackTimerBufferElement> playerAttackTimerBuffer;
 
     public readonly float3 Position
     {
@@ -41,27 +39,5 @@ public readonly partial struct PlayerAspect : IAspect
         {
             transform.ValueRW.Rotation = quaternion.EulerXYZ(new float3(0.0f, 0.0f, 0.0f));
         }
-    }
-
-    [BurstCompile]
-    public void ApplyHealthBuffer()
-    {
-        foreach (PlayerHealthBufferElement playerHealthBufferElement in playerHealthBuffer)
-        {
-            playerComponent.ValueRW.Health += playerHealthBufferElement.Value;
-        }
-
-        playerHealthBuffer.Clear();
-    }
-
-    [BurstCompile]
-    public void ApplyAttackTimerBuffer()
-    {
-        foreach (PlayerAttackTimerBufferElement playerAttackTimerBufferElement in playerAttackTimerBuffer)
-        {
-            playerComponent.ValueRW.AttackTimer = playerAttackTimerBufferElement.Value;
-        }
-
-        playerAttackTimerBuffer.Clear();
     }
 }
