@@ -1,31 +1,44 @@
 using Unity.Burst;
+using Unity.Burst.Intrinsics;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Physics.Stateful;
 
 [BurstCompile]
-public partial struct WeaponEnemyTriggerJob : IJobEntity
+public partial struct WeaponEnemyTriggerJob : IJobChunk
 {
-    public EntityCommandBuffer ECB;
+    public EntityCommandBuffer.ParallelWriter ECB;
+    public EntityTypeHandle EntityTypeHandle;
     [ReadOnly]
-    public ComponentLookup<EnemyComponent> EnemyComponent;
+    public BufferTypeHandle<StatefulTriggerEvent> StatefulTriggerEventTypeHandle;
+    [ReadOnly]
+    public ComponentTypeHandle<WeaponComponent> WeaponComponentTypeHandle;
+    [ReadOnly]
+    public ComponentLookup<EnemyComponent> EnemyComponentLookup;
 
-    public void Execute(Entity entity, ref DynamicBuffer<StatefulTriggerEvent> triggerBuffer, WeaponComponent weaponComponent)
+    public void Execute(in ArchetypeChunk chunk, int unfilteredChunkIndex, bool useEnabledMask, in v128 chunkEnabledMask)
     {
-        for (int i = 0; i < triggerBuffer.Length; i++)
+        NativeArray<Entity> entites = chunk.GetNativeArray(EntityTypeHandle);
+        BufferAccessor<StatefulTriggerEvent> statefulTriggerEvents = chunk.GetBufferAccessor(ref StatefulTriggerEventTypeHandle);
+        NativeArray<WeaponComponent> weaponComponents = chunk.GetNativeArray(ref WeaponComponentTypeHandle);
+
+        for(int i = 0; i < chunk.Count; i++)
         {
-            StatefulTriggerEvent triggerEvent = triggerBuffer[i];
-            Entity otherEntity = triggerEvent.GetOtherEntity(entity);
-
-            if (triggerEvent.State == StatefulEventState.Enter)
+            for (int j = 0; j < statefulTriggerEvents[i].Length; j++)
             {
-                EnemyComponent enemyComponent;
-                
-                if(EnemyComponent.TryGetComponent(otherEntity, out enemyComponent))
-                {
-                    enemyComponent.Health -= weaponComponent.Damage;
+                StatefulTriggerEvent triggerEvent = statefulTriggerEvents[i][j];
+                Entity otherEntity = triggerEvent.GetOtherEntity(entites[i]);
 
-                    ECB.SetComponent(otherEntity, enemyComponent);
+                if (triggerEvent.State == StatefulEventState.Enter)
+                {
+                    EnemyComponent enemyComponent;
+
+                    if (EnemyComponentLookup.TryGetComponent(otherEntity, out enemyComponent))
+                    {
+                        enemyComponent.Health -= weaponComponents[i].Damage;
+
+                        ECB.SetComponent(unfilteredChunkIndex, otherEntity, enemyComponent);
+                    }
                 }
             }
         }
