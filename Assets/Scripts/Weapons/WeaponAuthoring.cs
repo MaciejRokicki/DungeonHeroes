@@ -23,6 +23,5 @@ internal class WeaponBaker : Baker<WeaponAuthoring>
         });
 
         AddBuffer<StatefulTriggerEvent>(entity);
-
     }
 }
