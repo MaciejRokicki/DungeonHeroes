@@ -25,7 +25,7 @@ public partial struct WeaponMovementJob : IJobChunk
         for(int i = 0; i < chunk.Count; i++)
         {
             LocalTransform transform = transforms[i];
-            transform.Position = transform.Position + weaponComponents[i].Direction * weaponComponents[i].Speed * DeltaTime;
+            transform.Position = transform.Position + weaponComponents[i].Direction * weaponComponents[i].WeaponStatisticsBlob.Value.Speed * DeltaTime;
 
             ECB.SetComponent(unfilteredChunkIndex, entities[i], transform);
 

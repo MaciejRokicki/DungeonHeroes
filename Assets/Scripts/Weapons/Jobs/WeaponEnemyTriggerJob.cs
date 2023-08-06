@@ -35,7 +35,7 @@ public partial struct WeaponEnemyTriggerJob : IJobChunk
 
                     if (EnemyComponentLookup.TryGetComponent(otherEntity, out enemyComponent))
                     {
-                        enemyComponent.Health -= weaponComponents[i].Damage;
+                        enemyComponent.Health -= weaponComponents[i].WeaponStatisticsBlob.Value.Damage;
 
                         ECB.SetComponent(unfilteredChunkIndex, otherEntity, enemyComponent);
                     }

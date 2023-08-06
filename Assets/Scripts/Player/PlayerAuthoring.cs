@@ -5,7 +5,7 @@ public class PlayerAuthoring : MonoBehaviour
 {
     public float MaxHealth;
     public float MovmentSpeed;
-    public GameObject Weapon;
+    public GameObject[] Weapons;
 }
 
 internal class PlayerBaker : Baker<PlayerAuthoring>
@@ -20,11 +20,18 @@ internal class PlayerBaker : Baker<PlayerAuthoring>
             Health = authoring.MaxHealth,
             MaxHealth = authoring.MaxHealth,
             MovementSpeed = authoring.MovmentSpeed,
-            Weapon = GetEntity(authoring.Weapon, TransformUsageFlags.Dynamic),
-            AttackTimer = 0.0f
         });
 
         AddBuffer<PlayerHealthBufferElement>(entity);
-        AddBuffer<PlayerAttackTimerBufferElement>(entity);
+        DynamicBuffer<PlayerWeaponBufferElement> playerWeaponBuffer = AddBuffer<PlayerWeaponBufferElement>(entity);
+
+        foreach(GameObject weapon in authoring.Weapons)
+        {
+            playerWeaponBuffer.Add(new PlayerWeaponBufferElement
+            {
+                Weapon = GetEntity(weapon, TransformUsageFlags.Dynamic),
+                AttackTimer = 0.0f
+            });
+        }
     }
 }
