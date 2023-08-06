@@ -12,7 +12,6 @@ public partial struct PlayerCombatSystem : ISystem
         state.RequireForUpdate<PlayerComponent>();
     }
 
-    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         EntityCommandBuffer ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
