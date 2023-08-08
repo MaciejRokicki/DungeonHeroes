@@ -21,6 +21,12 @@ internal class PlayerBaker : Baker<PlayerAuthoring>
             MaxHealth = authoring.MaxHealth,
             MovementSpeed = authoring.MovmentSpeed,
         });
+        AddComponent(entity, new PlayerExperienceComponent
+        {
+            Experience = 0,
+            ExperienceToNextLevel = 100,
+            Level = 1
+        });
 
         AddBuffer<PlayerHealthBufferElement>(entity);
         DynamicBuffer<PlayerWeaponBufferElement> playerWeaponBuffer = AddBuffer<PlayerWeaponBufferElement>(entity);

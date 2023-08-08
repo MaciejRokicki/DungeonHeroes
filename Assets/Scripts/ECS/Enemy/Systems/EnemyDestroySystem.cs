@@ -6,9 +6,13 @@ public partial struct EnemyDestroySystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
+        Entity playerEntity = SystemAPI.GetSingletonEntity<PlayerComponent>();
+
         new EnemyDestronyJob
         {
-            ECB = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged)
+            ECB = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged),
+            PlayerEntity = playerEntity,
+            PlayerExperienceComponentLookup = SystemAPI.GetComponentLookup<PlayerExperienceComponent>(true)
         }.Schedule();
     }
 }
