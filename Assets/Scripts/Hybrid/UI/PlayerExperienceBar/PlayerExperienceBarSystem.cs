@@ -2,6 +2,11 @@ using Unity.Entities;
 
 public partial class PlayerExperienceBarSystem : SystemBase
 {
+    protected override void OnCreate()
+    {
+        RequireForUpdate<PlayerExperienceComponent>();
+    }
+
     protected override void OnUpdate()
     {
         PlayerExperienceComponent playerExperienceComponent = SystemAPI.GetSingleton<PlayerExperienceComponent>();

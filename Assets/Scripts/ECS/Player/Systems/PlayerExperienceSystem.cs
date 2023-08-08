@@ -7,6 +7,7 @@ public partial struct PlayerExperienceSystem : ISystem
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<PlayerExperienceComponent>();
+        state.RequireForUpdate<WeaponManagerComponent>();
     }
 
     [BurstCompile]
@@ -16,7 +17,10 @@ public partial struct PlayerExperienceSystem : ISystem
 
         new PlayerExperienceJob
         {
-            ECB = ecb
+            ECB = ecb,
+            WeaponManagerEntity = SystemAPI.GetSingletonEntity<WeaponManagerComponent>(),
+            WeaponBufferElementLookup = SystemAPI.GetBufferLookup<WeaponBufferElement>(true),
+            WeaponComponentLookup = SystemAPI.GetComponentLookup<WeaponComponent>(true),
         }.Schedule();
     }
 }

@@ -153,7 +153,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4083951
 MonoBehaviour:
@@ -1083,7 +1083,7 @@ Transform:
   - {fileID: 429405814}
   - {fileID: 1734194506}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1056775483
 PrefabInstance:
@@ -1380,6 +1380,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5679258265662330374, guid: f7b3f7da3713f3f40b413ff6156d6d30, type: 3}
   m_PrefabInstance: {fileID: 1006784446}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1365023620
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1365023622}
+  - component: {fileID: 1365023621}
+  m_Layer: 0
+  m_Name: WeaponManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1365023621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365023620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d298050c5e24a34ea88eb23a76895d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Weapons:
+  - {fileID: 5507511131776638803, guid: a36cd54b5bd62754bb5ab168042b43f0, type: 3}
+  - {fileID: 5507511131776638803, guid: 7b486f3f075e60942aa7bb9ad96b3b00, type: 3}
+  - {fileID: 5507511131776638803, guid: 75b2f18fd5253e04ca8425acdd76ac87, type: 3}
+  - {fileID: 5507511131776638803, guid: 863d4d908f5a2b14b846d5cd9f23072b, type: 3}
+--- !u!4 &1365023622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365023620}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1419043371
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2159,7 +2208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6201208174628762220, guid: 404d7f64bcf709a40bfb041e902e9dd7, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6201208174628762220, guid: 404d7f64bcf709a40bfb041e902e9dd7, type: 3}
       propertyPath: m_LocalPosition.x

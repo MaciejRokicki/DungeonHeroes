@@ -9,6 +9,11 @@ public partial class PlayerHealthBarSystem : SystemBase
         RequireForUpdate<PlayerComponent>();
     }
 
+    protected override void OnStopRunning()
+    {
+        HealthBarGameObject.Slider.gameObject.SetActive(false);
+    }
+
     protected override void OnUpdate()
     {
         Entity playerEntity = SystemAPI.GetSingletonEntity<PlayerComponent>();

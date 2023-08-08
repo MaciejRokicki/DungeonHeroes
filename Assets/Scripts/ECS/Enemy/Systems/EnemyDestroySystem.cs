@@ -4,6 +4,12 @@ using Unity.Entities;
 public partial struct EnemyDestroySystem : ISystem
 {
     [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        state.RequireForUpdate<PlayerComponent>();
+    }
+
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         Entity playerEntity = SystemAPI.GetSingletonEntity<PlayerComponent>();

@@ -119,9 +119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02bdc7a1630c89d4c9a47b5b3b55115a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerLevel: 1
   Damage: 100
   Speed: 7.5
-  Firerate: 0.5
+  Firerate: 1
   ShotDirections:
   - x: 0
     y: 1

@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class WeaponAuthoring : MonoBehaviour
 {
+    public int PlayerLevel;
     public float Damage;
     public float Speed;
     public float Firerate;
@@ -34,6 +35,7 @@ internal class WeaponBaker : Baker<WeaponAuthoring>
 
         ref WeaponStatistics weaponStatistics = ref blobBuilder.ConstructRoot<WeaponStatistics>();
 
+        weaponStatistics.PlayerLevel = authoring.PlayerLevel;
         weaponStatistics.Damage = authoring.Damage;
         weaponStatistics.Speed = authoring.Speed;
         weaponStatistics.Firerate = authoring.Firerate;

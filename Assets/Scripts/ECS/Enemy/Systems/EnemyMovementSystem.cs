@@ -6,6 +6,7 @@ using Unity.Transforms;
 public partial struct EnemyMovementSystem : ISystem
 {
     EntityQuery enemyQuery;
+
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {

@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 100
   MovmentSpeed: 4
+  StartWeapon: {fileID: 2745591379493646144, guid: a36cd54b5bd62754bb5ab168042b43f0, type: 3}
 --- !u!54 &7226218265146976511
 Rigidbody:
   m_ObjectHideFlags: 0
