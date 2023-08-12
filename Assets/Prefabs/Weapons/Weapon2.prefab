@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerLevel: 5
-  Damage: 100
+  Damage: 70
   Speed: 5
   Firerate: 1
   ShotDirections:

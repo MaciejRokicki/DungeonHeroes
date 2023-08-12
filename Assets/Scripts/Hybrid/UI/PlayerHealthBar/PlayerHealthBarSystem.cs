@@ -1,5 +1,4 @@
 using Unity.Entities;
-using Unity.Mathematics;
 using Unity.Transforms;
 
 public partial class PlayerHealthBarSystem : SystemBase
@@ -11,7 +10,7 @@ public partial class PlayerHealthBarSystem : SystemBase
 
     protected override void OnStopRunning()
     {
-        HealthBarGameObject.Slider.gameObject.SetActive(false);
+       HealthBarGameObject.Instance.Slider?.gameObject.SetActive(false);
     }
 
     protected override void OnUpdate()
@@ -20,8 +19,8 @@ public partial class PlayerHealthBarSystem : SystemBase
         LocalTransform playerTransform = SystemAPI.GetComponent<LocalTransform>(playerEntity);
         PlayerComponent playerComponent = SystemAPI.GetComponent<PlayerComponent>(playerEntity);
 
-        HealthBarGameObject.Slider.transform.position = playerTransform.Position + new float3(0.0f, -30.0f, 0.0f) * 0.02508961f;
-        HealthBarGameObject.Slider.value = playerComponent.Health;
-        HealthBarGameObject.Slider.maxValue = playerComponent.MaxHealth;
+        HealthBarGameObject.Instance.Slider.transform.position = playerTransform.Position + HealthBarGameObject.Instance.Offset;
+        HealthBarGameObject.Instance.Slider.value = playerComponent.Health;
+        HealthBarGameObject.Instance.Slider.maxValue = playerComponent.MaxHealth;
     }
 }

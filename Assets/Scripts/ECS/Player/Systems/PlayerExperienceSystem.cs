@@ -17,10 +17,7 @@ public partial struct PlayerExperienceSystem : ISystem
 
         new PlayerExperienceJob
         {
-            ECB = ecb,
-            WeaponManagerEntity = SystemAPI.GetSingletonEntity<WeaponManagerComponent>(),
-            WeaponBufferElementLookup = SystemAPI.GetBufferLookup<WeaponBufferElement>(true),
-            WeaponComponentLookup = SystemAPI.GetComponentLookup<WeaponComponent>(true),
+            ECB = ecb
         }.Schedule();
     }
 }

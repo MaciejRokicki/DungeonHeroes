@@ -17,10 +17,10 @@ public partial struct EnemySpawnerSpawnEnemyJob : IJobEntity
 
         foreach (EnemySpawnerSpawnPositionBuffer enemySpawnerSpawnPosition in enemySpawnerSpawnPositionBuffer)
         {
-            if (PlayerPosition.x - CameraGameObject.CameraViewSize.x / 2.0f < enemySpawnerSpawnPosition.SpawnPosition.x &&
-                PlayerPosition.x + CameraGameObject.CameraViewSize.x / 2.0f > enemySpawnerSpawnPosition.SpawnPosition.x &&
-                PlayerPosition.y - CameraGameObject.CameraViewSize.y / 2.0f < enemySpawnerSpawnPosition.SpawnPosition.y &&
-                PlayerPosition.y + CameraGameObject.CameraViewSize.y / 2.0f > enemySpawnerSpawnPosition.SpawnPosition.y)
+            if (PlayerPosition.x - CameraGameObject.Instance.CameraViewSize.x / 2.0f < enemySpawnerSpawnPosition.SpawnPosition.x &&
+                PlayerPosition.x + CameraGameObject.Instance.CameraViewSize.x / 2.0f > enemySpawnerSpawnPosition.SpawnPosition.x &&
+                PlayerPosition.y - CameraGameObject.Instance.CameraViewSize.y / 2.0f < enemySpawnerSpawnPosition.SpawnPosition.y &&
+                PlayerPosition.y + CameraGameObject.Instance.CameraViewSize.y / 2.0f > enemySpawnerSpawnPosition.SpawnPosition.y)
             {
                 continue;
             }

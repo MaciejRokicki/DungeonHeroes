@@ -13,9 +13,9 @@ public partial class PlayerInputSystem : SystemBase, GameInputAction.IPlayerActi
         movementDirection = context.ReadValue<Vector2>();
     }
 
-    protected override void OnStartRunning() => inputAction.Enable();
+    protected override void OnStartRunning() => inputAction.Player.Enable();
 
-    protected override void OnStopRunning() => inputAction.Disable();
+    protected override void OnStopRunning() => inputAction.Player.Disable();
 
     protected override void OnCreate()
     {

@@ -120,13 +120,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerLevel: 15
-  Damage: 100
-  Speed: 10
-  Firerate: 3
+  Damage: 115
+  Speed: 15
+  Firerate: 0.5
   ShotDirections:
-  - x: -1
-    y: 0
+  - x: 0
+    y: 1
+    z: 0
+  - x: 1
+    y: 1
     z: 0
   - x: 1
     y: 0
+    z: 0
+  - x: 1
+    y: -1
+    z: 0
+  - x: 0
+    y: -1
+    z: 0
+  - x: -1
+    y: -1
+    z: 0
+  - x: -1
+    y: 0
+    z: 0
+  - x: -1
+    y: 1
     z: 0

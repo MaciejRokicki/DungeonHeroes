@@ -127,6 +127,34 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "GameOver",
+            "id": "3676f209-9020-40dd-a4da-540c37cff5c6",
+            "actions": [
+                {
+                    "name": "Restart",
+                    "type": "Button",
+                    "id": "f36b3c34-8ff4-4e1b-97b2-3575136ae186",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b82ad774-b962-46b4-8306-5e95e331886f",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

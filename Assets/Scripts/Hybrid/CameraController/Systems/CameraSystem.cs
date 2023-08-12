@@ -21,8 +21,8 @@ public partial class CameraSystem : SystemBase
             );
 
         pos = math.clamp(pos,
-            new float3(CameraGameObject.ViewClampMin, -10.0f),
-            new float3(CameraGameObject.ViewClampMax, -10.0f)
+            new float3(CameraGameObject.Instance.ViewClampMin, -10.0f),
+            new float3(CameraGameObject.Instance.ViewClampMax, -10.0f)
             );
 
         CameraGameObject.Instance.transform.position = pos;

@@ -122,17 +122,11 @@ MonoBehaviour:
   PlayerLevel: 10
   Damage: 100
   Speed: 7.5
-  Firerate: 1.5
+  Firerate: 1
   ShotDirections:
   - x: -1
-    y: 1
+    y: 0
     z: 0
   - x: 1
-    y: 1
-    z: 0
-  - x: -1
-    y: -1
-    z: 0
-  - x: 1
-    y: -1
+    y: 0
     z: 0

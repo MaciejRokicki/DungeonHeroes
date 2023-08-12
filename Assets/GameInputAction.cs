@@ -149,6 +149,34 @@ public partial class @GameInputAction: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""GameOver"",
+            ""id"": ""3676f209-9020-40dd-a4da-540c37cff5c6"",
+            ""actions"": [
+                {
+                    ""name"": ""Restart"",
+                    ""type"": ""Button"",
+                    ""id"": ""f36b3c34-8ff4-4e1b-97b2-3575136ae186"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""b82ad774-b962-46b4-8306-5e95e331886f"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -156,6 +184,9 @@ public partial class @GameInputAction: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+        // GameOver
+        m_GameOver = asset.FindActionMap("GameOver", throwIfNotFound: true);
+        m_GameOver_Restart = m_GameOver.FindAction("Restart", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -259,8 +290,58 @@ public partial class @GameInputAction: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // GameOver
+    private readonly InputActionMap m_GameOver;
+    private List<IGameOverActions> m_GameOverActionsCallbackInterfaces = new List<IGameOverActions>();
+    private readonly InputAction m_GameOver_Restart;
+    public struct GameOverActions
+    {
+        private @GameInputAction m_Wrapper;
+        public GameOverActions(@GameInputAction wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Restart => m_Wrapper.m_GameOver_Restart;
+        public InputActionMap Get() { return m_Wrapper.m_GameOver; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GameOverActions set) { return set.Get(); }
+        public void AddCallbacks(IGameOverActions instance)
+        {
+            if (instance == null || m_Wrapper.m_GameOverActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GameOverActionsCallbackInterfaces.Add(instance);
+            @Restart.started += instance.OnRestart;
+            @Restart.performed += instance.OnRestart;
+            @Restart.canceled += instance.OnRestart;
+        }
+
+        private void UnregisterCallbacks(IGameOverActions instance)
+        {
+            @Restart.started -= instance.OnRestart;
+            @Restart.performed -= instance.OnRestart;
+            @Restart.canceled -= instance.OnRestart;
+        }
+
+        public void RemoveCallbacks(IGameOverActions instance)
+        {
+            if (m_Wrapper.m_GameOverActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IGameOverActions instance)
+        {
+            foreach (var item in m_Wrapper.m_GameOverActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_GameOverActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public GameOverActions @GameOver => new GameOverActions(this);
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
+    }
+    public interface IGameOverActions
+    {
+        void OnRestart(InputAction.CallbackContext context);
     }
 }

@@ -3,36 +3,23 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class EnemyHitManagerGameObject : MonoBehaviour
+public class EnemyHitManagerGameObject : Singleton<EnemyHitManagerGameObject>
 {
-    [SerializeField]
-    private Transform canvas;
-    [SerializeField]
-    private Transform enemyHitText;
-    [SerializeField]
-    private float3 offset;
+    public Transform Canvas;
+    public Transform EnemyHitText;
+    public float3 Offset;
 
-    [SerializeField]
-    private Vector3 targetPositionOffset;
-    [SerializeField]
-    private float duration;
+    public Vector3 TargetPositionOffset;
+    public float Duration;
+    [HideInInspector]
+    public Vector3 StepTargetPositionOffset;
 
-    private static Transform Canvas;
-    private static Transform EnemyHitText;
-    private static float3 Offset;
-
-    public static float Duration;
-    public static Vector3 StepTargetPositionOffset;
-
-    public static IObjectPool<Transform> EnemyHitTextPool;
+    public IObjectPool<Transform> EnemyHitTextPool;
 
     private void Awake()
     {
-        Canvas = canvas;
-        EnemyHitText = enemyHitText;
-        Offset = offset * 0.02508961f;
-        Duration = duration;
-        StepTargetPositionOffset = targetPositionOffset / Duration * 0.02508961f;
+        Offset *= 0.02508961f;
+        StepTargetPositionOffset = TargetPositionOffset / Duration * 0.02508961f;
     }
 
     private void Start()
@@ -40,7 +27,7 @@ public class EnemyHitManagerGameObject : MonoBehaviour
         EnemyHitTextPool = new ObjectPool<Transform>(CreatePooledEnemyHitText, OnTakeFromPool, OnReturnedToPool, OnDestroyPoolObject);
     }
 
-    public static void DisplayEnemyHit(float3 position, float damage)
+    public void DisplayEnemyHit(float3 position, float damage)
     {
         Transform text = EnemyHitTextPool.Get();
         text.transform.position = position + Offset;
@@ -57,7 +44,7 @@ public class EnemyHitManagerGameObject : MonoBehaviour
 
     private void OnReturnedToPool(Transform transform)
     {
-        transform.position -= targetPositionOffset;
+        transform.position -= TargetPositionOffset;
         transform.gameObject.SetActive(false);
     }
 

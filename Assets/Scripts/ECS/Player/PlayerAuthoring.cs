@@ -30,6 +30,7 @@ internal class PlayerBaker : Baker<PlayerAuthoring>
 
         AddBuffer<PlayerHealthBufferElement>(entity);
         DynamicBuffer<PlayerWeaponBufferElement> playerWeapons = AddBuffer<PlayerWeaponBufferElement>(entity);
+
         playerWeapons.Add(new PlayerWeaponBufferElement
         {
             Weapon = GetEntity(authoring.StartWeapon, TransformUsageFlags.None),

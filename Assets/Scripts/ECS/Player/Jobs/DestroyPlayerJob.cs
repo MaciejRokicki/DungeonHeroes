@@ -10,6 +10,9 @@ public partial struct DestroyPlayerJob : IJobEntity
     {
         if(playerComponent.Health < 0.0f)
         {
+            Entity onPlayerDie = ECB.CreateEntity();
+            ECB.AddComponent(onPlayerDie, new OnPlayerDieComponent());
+
             ECB.DestroyEntity(entity);
         }
     }

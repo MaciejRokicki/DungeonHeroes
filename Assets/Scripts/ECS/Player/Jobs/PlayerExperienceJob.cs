@@ -6,11 +6,6 @@ using Unity.Entities;
 public partial struct PlayerExperienceJob : IJobEntity
 {
     public EntityCommandBuffer ECB;
-    public Entity WeaponManagerEntity;
-    [ReadOnly]
-    public BufferLookup<WeaponBufferElement> WeaponBufferElementLookup;
-    [ReadOnly]
-    public ComponentLookup<WeaponComponent> WeaponComponentLookup;
 
     public void Execute(Entity entity, PlayerExperienceComponent playerExperienceComponent)
     {
@@ -23,24 +18,11 @@ public partial struct PlayerExperienceJob : IJobEntity
 
             ECB.SetComponent(entity, playerExperienceComponentTmp);
 
-            CheckAvailableWeapon(playerExperienceComponentTmp.Level, entity);
-        }
-    }
-
-    private void CheckAvailableWeapon(int level, Entity playerEntity)
-    {
-        foreach (WeaponBufferElement weapon in WeaponBufferElementLookup[WeaponManagerEntity])
-        {
-            WeaponComponent w = WeaponComponentLookup[weapon.Weapon];
-
-            if (level == w.WeaponStatisticsBlob.Value.PlayerLevel)
+            Entity onPlayerLevelUp = ECB.CreateEntity();
+            ECB.AddComponent(onPlayerLevelUp, new OnPlayerLevelUpComponent
             {
-                ECB.AppendToBuffer(playerEntity, new PlayerWeaponBufferElement
-                {
-                    Weapon = weapon.Weapon,
-                    AttackTimer = 0.0f
-                });
-            }
+                Level = playerExperienceComponentTmp.Level
+            });
         }
     }
 }

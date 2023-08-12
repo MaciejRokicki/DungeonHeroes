@@ -14,7 +14,7 @@ public partial class EnemyHitSystem : SystemBase
         foreach((RefRW<EnemyHitComponent> enemyHitComponent, Entity entity) in SystemAPI.Query<RefRW<EnemyHitComponent>>().WithEntityAccess())
         {
             ecb.RemoveComponent<EnemyHitComponent>(entity);
-            EnemyHitManagerGameObject.DisplayEnemyHit(enemyHitComponent.ValueRO.Position, enemyHitComponent.ValueRO.Damage);
+            EnemyHitManagerGameObject.Instance.DisplayEnemyHit(enemyHitComponent.ValueRO.Position, enemyHitComponent.ValueRO.Damage);
         }
     }
 }
