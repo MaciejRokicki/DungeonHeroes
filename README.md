@@ -9,7 +9,7 @@ Prototyp gry polegający na jak najdłuższym przetrwaniu. Gracz zdobywa doświa
 * Projekt został zrealizowany na silniku Unity przy podejściu zorientowanym na danych - ECS, w wersji 1.0.11 oraz wykorzystując technologie i paczki wchodzące w skład DOTS. Dodatkowo do zarządzania interfejsem użytkownika wykorzystano podejście hybrydowe.
 * W projekcie zastosowano następujące wzorce projektowe: singleton (jako klasa abstrakcyjna, do komunikacji encji z obiektami odpowiadającymi za sterowanie interfejsem użytkownika, ale też ECS'owy singleton - np. jako gracz), obserwator (w postaci ECS'owych komponentów, używanych np. do informowania o śmierci gracza).
 * Z zastosowanych elementów silnika użyto: elementy wchodzące w skład DOTS - ECS (Entites, Components, Systems, EntityCommandBuffer, Aspects, DynamicBuffers, BlobAssets), Burst, Jobs, Unity Physics for ECS, ale też elementy takie jak ObjectPooling (do gromadzenia informacji o zadanych obrażeniach przeciwnikom), new input system, 2D Tilemaps.
-* Na ostatnim screenshot'cie przedstawiono uzyskaną wydajność na laptopie z procesorem Intel Core i5 8300H oraz kartą graficzna GTX 1050.
+* Na ostatnim screenshot'cie przedstawiono uzyskaną wydajność na laptopie z procesorem Intel Core i5 8300H oraz kartą graficzną GTX 1050.
 
 ### Windows build
 https://github.com/MaciejRokicki/EndlessRunner/releases/download/v1.0.0/EndlessRunner.zip
