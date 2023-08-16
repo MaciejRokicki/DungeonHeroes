@@ -12,7 +12,7 @@ Prototyp gry polegający na jak najdłuższym przetrwaniu. Gracz zdobywa doświa
 * Na ostatnim screenshot'cie przedstawiono uzyskaną wydajność na laptopie z procesorem Intel Core i5 8300H oraz kartą graficzną GTX 1050.
 
 ### Windows build
-https://github.com/MaciejRokicki/DungeonHeroes/archive/refs/tags/v1.0.0.zip
+https://github.com/MaciejRokicki/DungeonHeroes/releases/download/v1.0.0/DungeonHeroes.zip
 
 ### Screenshots
 ![](/../master/Media/1.png)
